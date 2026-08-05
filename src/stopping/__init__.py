@@ -1,0 +1,1 @@
+"""Stopping criteria package."""

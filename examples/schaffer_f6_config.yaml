@@ -1,0 +1,31 @@
+# PSO Single Experiment Configuration (Schaffer F6) - Using Benchmark Format
+
+problems_to_benchmark:
+  schaffer_f6:
+    dimensions: 2 # Single integer value (Schaffer F6 is defined for 2D)
+    bounds: {min: -100.0, max: 100.0}   # Standard bounds
+    stopping_criteria:
+    - {type: max_iterations, max_iterations: 5000}     # Iterations for testing
+
+# Common PSO Settings
+common_swarm:
+  num_particles: 30
+
+common_pso_params:
+  topology: global
+  initialization_strategy: random_uniform
+  velocity_strategy: standard
+  boundary_handler: clamping
+  # Velocity clamping configuration as a structured object
+  velocity_clamping:
+    strategy: max_norm
+    max_velocity: 2.0
+
+# Common Run Settings
+  velocity_strategy_params:
+    c1: 1.49445
+    c2: 1.49445
+common_run_config:
+  num_runs: 10 # Single run for testing
+  random_seed: 42 # Use a seed for reproducibility
+  verbose: false

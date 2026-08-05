@@ -1,0 +1,60 @@
+# PSO Benchmark Configuration Example
+
+# Defines sets of problems to run with potentially shared settings
+problems_to_benchmark:
+  sphere:
+    dimensions: 10 # Single integer value
+    bounds: {min: -100.0, max: 100.0}
+    stopping_criteria:
+    - {type: max_iterations, max_iterations: 1000}
+    - {type: target_fitness, target: 1.0e-6}     # Stop if fitness <= 1e-6
+
+  rastrigin:
+    dimensions: 10 # Single integer value
+    bounds: {min: -5.12, max: 5.12}
+    stopping_criteria:
+    - {type: max_iterations, max_iterations: 2000}
+    - {type: target_fitness, target: 1.0e-4}     # Stop if fitness <= 1e-4
+
+  rosenbrock:
+    dimensions: 10 # Single integer value
+    bounds: {min: -30.0, max: 30.0}   # Common bounds for Rosenbrock
+    stopping_criteria:
+    - {type: max_iterations, max_iterations: 2500}
+    - {type: target_fitness, target: 10.0}     # Stop if fitness <= 10.0
+
+  ackley:
+    dimensions: 10 # Single integer value
+    bounds: {min: -32.768, max: 32.768}   # Standard bounds for Ackley
+    stopping_criteria:
+    - {type: max_iterations, max_iterations: 1500}
+    - {type: target_fitness, target: 1.0e-5}     # Stop if fitness <= 1e-5
+
+  # Add Schaffer F6 example
+  schaffer_f6:
+    dimensions: 2
+    bounds: {min: -100.0, max: 100.0}
+    stopping_criteria:
+    - {type: max_iterations, max_iterations: 500}
+    - {type: target_fitness, target: 1.0e-4}
+
+
+# Common PSO Settings (applied to all problems unless overridden)
+common_swarm:
+  num_particles: 30
+
+common_pso_params:
+  topology: global
+  initialization_strategy: random_uniform
+  velocity_strategy: standard # Default velocity strategy
+  boundary_handler: clamping  # Default boundary handling
+
+# Common Run Settings (applied to all benchmark tasks)
+  velocity_strategy_params:
+    c1: 1.49445
+    c2: 1.49445
+common_run_config:
+  num_runs: 30 # Number of independent runs per problem/dimension combo
+  verbose: false # Set to True for detailed output during runs
+  # output_dir: results/benchmark_set1 # Optional directory to save results
+  # random_seed: null # Seed for the entire benchmark set (if needed for reproducibility of the set) 

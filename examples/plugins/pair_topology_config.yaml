@@ -1,0 +1,25 @@
+problems_to_benchmark:
+  sphere:
+    dimensions: 12
+    bounds:
+      min: -10.0
+      max: 10.0
+    stopping_criteria:
+      - { type: max_iterations, max_iterations: 500 }
+      - { type: target_fitness, target: 1.0e-6 }
+
+common_swarm:
+  num_particles: 20
+
+common_pso_params:
+  topology: paired_ring
+  topology_params:
+    halo: 2
+  initialization_strategy: random_uniform
+  velocity_strategy: standard
+  boundary_handler: clamping
+
+common_run_config:
+  num_runs: 1
+  verbose: true
+  random_seed: 321

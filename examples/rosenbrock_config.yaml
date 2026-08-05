@@ -1,0 +1,27 @@
+# PSO Single Experiment Configuration (Rosenbrock) - Using Benchmark Format
+
+problems_to_benchmark:
+  rosenbrock:
+    dimensions: 10 # Single integer value
+    bounds: {min: -30.0, max: 30.0}   # Common bounds for Rosenbrock
+    stopping_criteria:
+    - {type: max_iterations, max_iterations: 100}     # Reduced iterations for quick test
+
+# Common PSO Settings
+common_swarm:
+  num_particles: 20
+
+common_pso_params:
+  topology: global
+  initialization_strategy: random_uniform
+  velocity_strategy: standard
+  boundary_handler: clamping
+
+# Common Run Settings
+  velocity_strategy_params:
+    c1: 1.49445
+    c2: 1.49445
+common_run_config:
+  num_runs: 1 # Single run for testing
+  random_seed: 123 # Use a seed for reproducibility
+  verbose: false

@@ -1,0 +1,90 @@
+# SPSO-2011 C-reference benchmark suite.
+#
+# Includes the CEC-2005 shifted benchmarks used by the reference C driver
+# when benchmarking SPSO 2011-like configurations.
+#
+# Reference for C side: main.c -> func[] and problemDef() entries.
+#
+# This file is intended for parity checks. Defaults match the reference
+# where possible, but you can reduce max_iterations / set a smaller
+# particle count for faster smoke tests.
+
+problems_to_benchmark:
+  sphere:
+    dimensions: 30
+    bounds: {min: -100.0, max: 100.0}
+    bias: -450.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 300000}     # 30 * 10000 eval budget
+    - {type: target_fitness, target: -449.999}     # tolerance near C objective
+
+  rastrigin:
+    dimensions: 30
+    bounds: {min: -5.12, max: 5.12}
+    bias: -330.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 300000}
+    - {type: target_fitness, target: -329.99}
+
+  rosenbrock:
+    dimensions: 10
+    bounds: {min: -100.0, max: 100.0}
+    bias: 390.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 100000}
+    - {type: target_fitness, target: 390.01}
+
+  schwefel:
+    dimensions: 10
+    bounds: {min: -100.0, max: 100.0}
+    bias: -450.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 100000}
+    - {type: target_fitness, target: -449.99}
+
+  griewank:
+    dimensions: 10
+    bounds: {min: -600.0, max: 600.0}
+    bias: -180.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 100000}
+    - {type: target_fitness, target: -179.99}
+
+  ackley:
+    dimensions: 10
+    bounds: {min: -32.0, max: 32.0}
+    bias: -140.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 100000}
+    - {type: target_fitness, target: -139.999}
+
+common_swarm:
+  num_particles: 40
+
+common_pso_params:
+  topology: random
+  topology_params:
+    k: 3
+  velocity_strategy: hypersphere
+  velocity_clamping:
+    strategy: none
+  boundary_handler: damped_reflection
+  initialization_strategy: bounds_aware
+  influence_strategy: single_best
+
+  boundary_handler_params:
+    damping_factor: -0.5
+common_run_config:
+  num_runs: 1
+  random_seed: 1294404794
+  verbose: false
+  # Optional task-level parallel execution in run layer.
+  # parallel:
+  #   enabled: true
+  #   num_cpus: 8

@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=75.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pso-framework"
+version = "0.1.0"
+description = "A modular, extensible Particle Swarm Optimization framework"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    {name = "PSO Framework Contributors"},
+]
+license = {text = "MIT"}
+dependencies = [
+    "numpy>=1.20.0",
+    "matplotlib>=3.3.0",
+    "pyyaml>=5.4.0",
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+]
+
+[project.optional-dependencies]
+parallel = [
+    "ray>=2.40.0",
+]
+
+[project.scripts]
+pso-run = "src.cli:app"
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "pytest-mock>=3.6.0",
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+]
+quality = [
+    "ruff>=0.15.0",
+    "ty>=0.0.17",
+]
+
+[tool.uv]
+default-groups = ["dev", "quality"]
+
+[tool.setuptools]
+package-dir = {"" = "."}
+packages.find = {where = ["."], include = ["src*"]}
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra -q --strict-markers"
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "unit: Unit tests (fast, isolated)",
+    "integration: Integration tests",
+    "slow: Slow tests that take more than 5 seconds",
+    "benchmark: Performance benchmark tests",
+    "smoke: Quick smoke tests for basic functionality",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+exclude = [".git", "__pycache__", ".venv", "build", "dist", "archive"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "ARG"]
+ignore = ["E203", "E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+
+[tool.ty.environment]
+python-version = "3.12"
+python-platform = "all"
+
+[tool.ty.src]
+include = ["src", "tests"]

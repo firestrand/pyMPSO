@@ -1,0 +1,35 @@
+{
+  "problems_to_benchmark": {
+    "sphere": {
+      "dimensions": 10,
+      "bounds": {
+        "min": -100.0,
+        "max": 100.0
+      },
+      "stopping_criteria": [
+        {
+          "type": "max_iterations",
+          "max_iterations": 5000
+        }
+      ]
+    }
+  },
+  "common_swarm": {
+    "num_particles": 30
+  },
+  "common_pso_params": {
+    "topology": "global",
+    "initialization_strategy": "random_uniform",
+    "velocity_strategy": "standard",
+    "boundary_handler": "clamping",
+    "velocity_strategy_params": {
+      "c1": 1.49445,
+      "c2": 1.49445
+    }
+  },
+  "common_run_config": {
+    "num_runs": 5,
+    "random_seed": null,
+    "verbose": false
+  }
+}

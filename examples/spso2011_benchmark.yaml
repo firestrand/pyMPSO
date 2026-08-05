@@ -1,0 +1,93 @@
+# SPSO-2011 C-reference benchmark suite.
+#
+# Includes the CEC-2005 shifted benchmarks used by the reference C driver
+# when benchmarking SPSO 2011-like configurations.
+#
+# Reference for C side: main.c -> func[] and problemDef() entries.
+#
+# This file is intended for parity checks against the C reference.
+# For parity protocol:
+# - set `common_run_config.num_runs` to 100
+# - keep `random_seed` null for independent random seeds
+# - compare distributions (mean/std/success rate), not exact seed-by-seed matching
+# For smoke tests, reduce max_evaluations and/or particles per task.
+
+problems_to_benchmark:
+  sphere:
+    dimensions: 30
+    bounds: {min: -100.0, max: 100.0}
+    bias: -450.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 300000}     # 30 * 10000 eval budget
+    - {type: target_fitness, target: -450.0, tolerance: 1e-6}
+
+  rastrigin:
+    dimensions: 30
+    bounds: {min: -5.12, max: 5.12}
+    bias: -330.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 300000}
+    - {type: target_fitness, target: -330.0, tolerance: 1e-2}
+
+  rosenbrock:
+    dimensions: 10
+    bounds: {min: -100.0, max: 100.0}
+    bias: 390.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 100000}
+    - {type: target_fitness, target: 390.0, tolerance: 1e-2}
+
+  schwefel:
+    dimensions: 10
+    bounds: {min: -100.0, max: 100.0}
+    bias: -450.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 100000}
+    - {type: target_fitness, target: -450.0, tolerance: 1e-5}
+
+  griewank:
+    dimensions: 10
+    bounds: {min: -600.0, max: 600.0}
+    bias: -180.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 100000}
+    - {type: target_fitness, target: -180.0, tolerance: 1e-2}
+
+  ackley:
+    dimensions: 10
+    bounds: {min: -32.0, max: 32.0}
+    bias: -140.0
+    use_cec_shift: true
+    stopping_criteria:
+    - {type: max_evaluations, max_evaluations: 100000}
+    - {type: target_fitness, target: -140.0, tolerance: 1e-4}
+
+common_swarm:
+  num_particles: 40
+
+common_pso_params:
+  topology: random
+  topology_params:
+    k: 3
+  velocity_strategy: hypersphere
+  velocity_clamping:
+    strategy: none
+  boundary_handler: damped_reflection
+  initialization_strategy: bounds_aware
+  influence_strategy: single_best
+
+  boundary_handler_params:
+    damping_factor: -0.5
+common_run_config:
+  num_runs: 1
+  random_seed:
+  verbose: false
+  # Optional task-level parallel execution in run layer.
+  # parallel:
+  #   enabled: true
+  #   num_cpus: 8

@@ -1,0 +1,27 @@
+# Test Configuration File - Using Benchmark Format
+
+problems_to_benchmark:
+  # Define a simple sphere problem for integration testing
+  sphere:
+    dimensions: 2 # Low dimension for speed
+    bounds: { min: -10, max: 10 }
+    stopping_criteria:
+      - { type: max_iterations, max_iterations: 5 } # Very few iterations
+
+# Common Settings
+common_swarm:
+  num_particles: 5 # Few particles
+
+common_pso_params:
+  topology: global
+  velocity_strategy_params:
+    c1: 1.5
+    c2: 1.5
+  initialization_strategy: random_uniform
+  velocity_strategy: standard
+  boundary_handler: clamping
+
+common_run_config:
+  num_runs: 1
+  random_seed: 99
+  verbose: False 

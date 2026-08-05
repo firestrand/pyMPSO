@@ -1,0 +1,1 @@
+"""Particle domain model package."""
