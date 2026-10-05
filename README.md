@@ -301,14 +301,22 @@ Common options:
 
 ## Development and Quality Tooling
 
-Use `uv` with `ruff` and `ty` for formatting, linting, and type checking:
+The development runtime is pinned to Python 3.14.8 in `.python-version`; the package
+continues to support Python 3.12+. This refresh was verified with uv 0.12.23.
+Use the committed lockfile for quality checks:
 
 ```bash
-uv run ruff check src tests
-uv run ruff format --check src tests
-uv run ty check src tests
-uv sync --group dev --group quality
+uv sync --locked --all-extras
+uv run --locked --all-extras ruff check src tests
+uv run --locked --all-extras ruff format --check src tests
+uv run --locked --all-extras ty check src tests
+uv run --locked --all-extras pytest -W error
+uv run --locked --all-extras pytest tests/unit --cov=src --cov-branch --cov-report=term-missing --cov-report=json
+uv build
 ```
+
+Coverage JSON reports line and branch percentages separately in `totals`; both
+must exceed 80%. `--all-extras` includes the optional Ray backend for verification.
 
 ## Extending the Framework (Based on Expanded Taxonomy)
 

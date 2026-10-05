@@ -52,12 +52,7 @@ position_strategy = VelocityResetPositionClampingStrategy()
 # Apply it to a particle
 particle = Particle(...)
 bounds = np.array([[-5, 5], [-5, 5]])  # Min/max bounds for each dimension
-apply_position_clamping(
-    particle=particle,
-    bounds=bounds,
-    position_strategy=position_strategy,
-    reset_velocity=True
-)
+apply_position_clamping(particle=particle, bounds=bounds, position_strategy=position_strategy, reset_velocity=True)
 ```
 
 ## Integration with Boundary Handling
